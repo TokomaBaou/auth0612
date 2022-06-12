@@ -10,7 +10,21 @@ import {
   Typography
 } from "@material-ui/core";
 
-export const Signup = () => {
+// authサービスをインポート
+import auth from "../firebase";
+export const Signup = (props: any) => {
+  //formに入力された値を保持する
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  //ログイン　状態かどうかを判定するイベントを発動
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      //ログインしている場合、ホームへリダイレクト
+      user && props.history.push("/");
+    });
+  }, []);
+
   return (
     <>
       <Container>
